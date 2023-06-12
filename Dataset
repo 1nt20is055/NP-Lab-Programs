@@ -1,0 +1,22 @@
+import pandas as pd
+
+chunk_size = 10_000  # Adjust the chunk size as per your system's capacity
+reader = pd.read_csv('your_file.csv', chunksize=chunk_size)
+
+# Initialize counters
+row_count = 0
+column_count = 0
+
+# Iterate over chunks and display limited rows and columns
+for chunk in reader:
+    # Display limited rows and columns
+    limited_chunk = chunk.iloc[:10, :10]  # Select first 10 rows and 10 columns
+    print(limited_chunk)
+
+    # Update counters
+    row_count += limited_chunk.shape[0]
+    column_count = limited_chunk.shape[1]
+
+    # Break the loop if the desired rows and columns have been displayed
+    if row_count >= 10 and column_count >= 10:
+        break
